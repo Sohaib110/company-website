@@ -12,8 +12,7 @@ class GeneralInfo(models.Model):
     instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
     
-    def __str__(self):
-        return self.company_name
+    
     
     
     
