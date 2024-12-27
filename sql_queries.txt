@@ -1,1 +1,0 @@
-SELECT "app_generalinfo"."id", "app_generalinfo"."company_name", "app_generalinfo"."location", "app_generalinfo"."email", "app_generalinfo"."phone", "app_generalinfo"."open_hours", "app_generalinfo"."video_url", "app_generalinfo"."twitter", "app_generalinfo"."facebook", "app_generalinfo"."instagram", "app_generalinfo"."linkedin" FROM "app_generalinfo" LIMIT 21
