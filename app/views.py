@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from app.models import GeneralInfo
-# Create your views here.
+
 def index(request):
     general_info = GeneralInfo.objects.first()
     
