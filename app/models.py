@@ -12,7 +12,15 @@ class GeneralInfo(models.Model):
     instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
     
+    def __str__(self):
+        return self.company_name
     
+class Service(models.Model):
+    icon= models.CharField(max_length=50 , blank=True, null=True)
+    title = models.CharField(max_length=255 , blank=True, null=True, unique=True)
+    description = models.TextField()
+    def __str__(self):
+        return self.title
     
     
     
