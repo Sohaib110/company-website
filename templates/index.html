@@ -41,50 +41,39 @@
         <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
           <div class="swiper-wrapper">
 
-            <div class="swiper-slide">
-              <div class="testimonial-wrap">
-                <div class="testimonial-item">
-                  <div class="d-flex align-items-center">
-                    <img src="{% static 'assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img flex-shrink-0" alt="">
-                    <div>
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p>
-                    <i class="bi bi-quote quote-icon-left"></i>
-                    Working with [Your Agency Name] was a game-changer for our business. Their team's strategic approach and attention to detail significantly boosted our online presence. They're not just an agency; they're a partner dedicated to our success.
-                    <i class="bi bi-quote quote-icon-right"></i>
-                  </p>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
+            {% for testimonial in testimonials %}
 
             <div class="swiper-slide">
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="d-flex align-items-center">
-                    <img src="{% static 'assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img flex-shrink-0" alt="">
+                    {% if "http" in testimonial.user_image %}
+                    <img src="{{ testimonial.user_image }}" class="testimonial-img flex-shrink-0" alt="">
+                    {% else %}
+                    <img src="{% static testimonial.user_image %}" class="testimonial-img flex-shrink-0" alt="">
+                    {% endif %}
+                    
                     <div>
-                      <h3>Adam</h3>
-                      <h4>Designer</h4>
+                      <h3>{{testimonial.username}}</h3>
+                      <h4>{{testimonial.user_job_title}}</h4>
                       <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        {% for i in 'x'|ljust:testimonial.rating_count %}
+                        <i class="bi bi-star-fill"></i>
+                        {% endfor %}
+                        
                       </div>
                     </div>
                   </div>
                   <p>
                     <i class="bi bi-quote quote-icon-left"></i>
-                    Incredible results, exceptional service! [Your Agency Name] delivered beyond our expectations. Their creativity and expertise transformed our marketing strategy, resulting in increased leads and revenue. Highly recommended.
+                    {{testimonial.review}}
                     <i class="bi bi-quote quote-icon-right"></i>
                   </p>
                 </div>
               </div>
             </div><!-- End testimonial item -->
-
+             
+            {% endfor %}
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -107,76 +96,22 @@
           <div class="col-lg-8">
 
             <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
-
+              {% for faq in faqs %}
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
                     <span class="num">1.</span>
-                    What services does your agency provide?
+                    {{faq.question}}
                   </button>
                 </h3>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    Our agency offers a range of services, including [brief description of services]. Whether you need [specific service] or [another service], we have the expertise to meet your needs.
+                    <p>{{faq.answer}}</p>
                   </div>
                 </div>
               </div><!-- # Faq item-->
+              {% endfor %}
 
-              <div class="accordion-item">
-                <h3 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                    <span class="num">2.</span>
-                    How can I contact your agency for assistance?
-                  </button>
-                </h3>
-                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                  <div class="accordion-body">
-                    You can reach us through our Contact Us page on the website, where you'll find our phone number and email address. Additionally, we welcome you to visit our office during business hours for face-to-face assistance.
-                  </div>
-                </div>
-              </div><!-- # Faq item-->
-
-              <div class="accordion-item">
-                <h3 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                    <span class="num">3.</span>
-                    What sets your agency apart from others in the industry?
-                  </button>
-                </h3>
-                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                  <div class="accordion-body">
-                    At [Agency Name], we pride ourselves on [highlight unique aspects such as expertise, customer service, or innovative solutions]. Our commitment to [core values] distinguishes us, ensuring that we deliver exceptional results for our clients.
-                  </div>
-                </div>
-              </div><!-- # Faq item-->
-
-              <div class="accordion-item">
-                <h3 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
-                    <span class="num">4.</span>
-                    How does the billing process work?
-                  </button>
-                </h3>
-                <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                  <div class="accordion-body">
-                    Our billing process is straightforward. Once we've provided you with a detailed proposal and you've accepted it, we will send you an invoice for the agreed-upon services. Our billing terms are [mention payment terms], and we accept payments through [list payment methods].
-                  </div>
-                </div>
-              </div><!-- # Faq item-->
-
-              <div class="accordion-item">
-                <h3 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-5">
-                    <span class="num">5.</span>
-                    Can I see examples of your agency's previous work?
-                  </button>
-                </h3>
-                <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-                  <div class="accordion-body">
-                    Absolutely! We showcase a portfolio of our work on our website under the "Projects" or "Portfolio" section. There, you can explore a variety of projects we've successfully completed, giving you a sense of the quality and diversity of our work.
-                  </div>
-                </div>
-              </div><!-- # Faq item-->
 
             </div>
 

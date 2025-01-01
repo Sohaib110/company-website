@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from app.models import GeneralInfo, Service
-
+from app.models import( 
+                       GeneralInfo,
+                       Service,
+                       Testimonial,
+                       FrequentlyAskedQuestion
+)
 def index(request):
     general_info = GeneralInfo.objects.first()
     service= Service.objects.all()
+    testimonial= Testimonial.objects.all()
+    faqs= FrequentlyAskedQuestion.objects.all()
     
-   
-
     context={
             "company_name":general_info.company_name,
             "location":general_info.location,
@@ -20,6 +24,11 @@ def index(request):
             "linkedin_url":general_info.linkedin,  
             
             "services":service, 
+            
+            "testimonials":testimonial,
+            "frequentlyAskedQuestions":faqs
+            
+            
                 
     }
     print(f"context:{context}")

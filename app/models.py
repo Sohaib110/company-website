@@ -21,7 +21,28 @@ class Service(models.Model):
     description = models.TextField()
     def __str__(self):
         return self.title
+
+class Testimonial(models.Model):
+    user_image = models.CharField(max_length=255, blank=True, null=True)
+    star_count=[
+        (1, 'One'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+        (5, 'Five'),
+    ] 
+    rating_count = models.IntegerField(choices=star_count)
+    username = models.CharField(max_length=100) 
+    user_job_title = models.CharField(max_length=100)
+    review=models.TextField()   
+    def __str__(self):
+        return f"{self.username} - {self.user_job_title}"
     
+class FrequentlyAskedQuestion(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    def __str__(self):
+        return self.question
     
     
     
