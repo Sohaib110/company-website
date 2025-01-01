@@ -26,7 +26,7 @@ def index(request):
             "services":service, 
             
             "testimonials":testimonial,
-            "frequentlyAskedQuestions":faqs
+            "faqs":faqs
             
             
                 
