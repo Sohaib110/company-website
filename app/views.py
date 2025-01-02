@@ -33,4 +33,5 @@ def index(request):
     }
     print(f"context:{context}")
     return render(request, 'index.html', context) 
+
     
