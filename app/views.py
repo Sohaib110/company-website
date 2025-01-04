@@ -34,4 +34,8 @@ def index(request):
     print(f"context:{context}")
     return render(request, 'index.html', context) 
 
+
+def contact_form(request):
+    print("\n user has submitted the contact form")
+
     
