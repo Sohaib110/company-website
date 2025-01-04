@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from app.models import( 
                        GeneralInfo,
                        Service,
@@ -36,6 +36,18 @@ def index(request):
 
 
 def contact_form(request):
-    print("\n user has submitted the contact form")
+        if request.method == 'POST':
+            print("\n user has submitted the contact form")
+            print(f" request.POST: {request.POST}")
+            name=request.POST.get('name')
+            email=request.POST.get('email')
+            subject=request.POST.get('subject')
+            message=request.POST.get('message')
+            
+            print(f"name: {name}")
+            print(f"email: {email}")
+            print(f"subject: {subject}")
+            print(f"message: {message}")
+        return redirect('home')
 
     
