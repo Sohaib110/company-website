@@ -3,7 +3,8 @@ from app.models import (
    GeneralInfo,
    Service,
    Testimonial, 
-   FrequentlyAskedQuestion
+   FrequentlyAskedQuestion,
+   ContactFormLog
 )
 
 @admin.register(GeneralInfo)
@@ -30,5 +31,24 @@ class TestimonialAdmin(admin.ModelAdmin):
 @admin.register(FrequentlyAskedQuestion)
 class FrequentlyAskedQuestionAdmin(admin.ModelAdmin):
    list_display = ['question', 'answer']
+   
+@admin.register(ContactFormLog)
+class ContactFormLogAdmin(admin.ModelAdmin):
+   list_display=[
+      'email',
+      'is_success',
+      'is_error',
+      'action_time'
+      
+   ]
+   
+   def has_add_permission(self, request, obj=None):
+      return False
+   
+   def has_change_permission(self, request, obj = None):
+      return False
+   
+   def has_delete_permission(self, request, obj = None):
+      return False 
        
     

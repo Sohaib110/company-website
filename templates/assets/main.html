@@ -28,6 +28,13 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  <style>
+    position:-webkit-sticky;
+    position:sticky;
+    top:0
+    z-index:1000;
+    width:100vw;
+  </style>
 
   <!-- =======================================================
   * Template Name: Impact
@@ -39,6 +46,17 @@
 </head>
 
 <body>
+      
+  {% for message in messages %}
+    {% if message.tags == "error" %}
+        <div class="alert alert-danger alert-dismissible fade show sticky-alert" role="alert">
+    {% else %}
+        <div class="alert alert-success alert-dismissible fade show sticky-alert" role="alert">
+    {% endif %}
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+ {% endfor %}
         {% include 'assets/header.html' %}
 
   <!-- ======= Hero Section ======= -->

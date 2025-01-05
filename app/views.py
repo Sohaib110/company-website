@@ -4,9 +4,13 @@ from app.models import(
                        GeneralInfo,
                        Service,
                        Testimonial,
-                       FrequentlyAskedQuestion
+                       FrequentlyAskedQuestion,
+                       ContactFormLog
 )
 from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib import messages
+from django.utils import timezone
 def index(request):
     general_info = GeneralInfo.objects.first()
     service= Service.objects.all()
@@ -46,19 +50,49 @@ def contact_form(request):
             subject=request.POST.get('subject')
             message=request.POST.get('message')
             
-            print(f"name: {name}")
-            print(f"email: {email}")
-            print(f"subject: {subject}")
-            print(f"message: {message}")
+            context={
+                        "name":name,
+                        "email":email,
+                        "subject":subject,
+                        "message":message
+            }
+            html_content= render_to_string('email.html', context)
             
-            send_mail(
+            is_error=False
+            is_success=False
+            error_message=""
+            
+            try:
+                send_mail(
                     subject=subject,
-                    message=f"{name}-{email}-{message}",
+                    message=None,
+                    html_message=html_content,
                     from_email=settings.EMAIL_HOST_USER, 
                     recipient_list=[settings.EMAIL_HOST_USER],
                     fail_silently=False,
                     
             )
-        return redirect('home')
+            except Exception as e:
+                is_error=True
+                error_message=str(e)
+                messages.error(request, "Email not sent")
+            else:
+                is_success=True
+                messages.success(request, "Email sent successfully")
+                
+            ContactFormLog.objects.create(
+                    name=name,
+                    email=email,
+                    subject=subject,
+                    message=message,
+                    action_time=timezone.now(),
+                    is_success=is_success,
+                    is_error=is_error,
+                    error_message=error_message,
+                    
+            )
+            return redirect('home')
+            
+                    
 
     
