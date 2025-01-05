@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
+from django.core.mail import send_mail
 from app.models import( 
                        GeneralInfo,
                        Service,
                        Testimonial,
                        FrequentlyAskedQuestion
 )
+from django.conf import settings
 def index(request):
     general_info = GeneralInfo.objects.first()
     service= Service.objects.all()
@@ -48,6 +50,15 @@ def contact_form(request):
             print(f"email: {email}")
             print(f"subject: {subject}")
             print(f"message: {message}")
+            
+            send_mail(
+                    subject=subject,
+                    message=f"{name}-{email}-{message}",
+                    from_email=settings.EMAIL_HOST_USER, 
+                    recipient_list=[settings.EMAIL_HOST_USER],
+                    fail_silently=False,
+                    
+            )
         return redirect('home')
 
     
