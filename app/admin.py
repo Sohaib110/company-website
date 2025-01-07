@@ -23,7 +23,7 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
    list_display = ['username', 'user_job_title', 'display_rating_count']
-   
+
    def display_rating_count(self, obj):
       return '*' * obj.rating_count
    display_rating_count.short_description = "Rating"
@@ -39,7 +39,6 @@ class ContactFormLogAdmin(admin.ModelAdmin):
       'is_success',
       'is_error',
       'action_time'
-      
    ]
    def has_add_permission(self, request, obj=None):
       return False
