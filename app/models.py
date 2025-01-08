@@ -44,7 +44,6 @@ class FrequentlyAskedQuestion(models.Model):
     def __str__(self):
         return self.question
     
-    
 class ContactFormLog(models.Model):
     name=models.CharField(max_length=255)
     email=models.CharField(max_length=50)
