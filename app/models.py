@@ -67,7 +67,6 @@ class Author(models.Model):
     def __str__(self):
         return self.first_name
     
-    
 class Blog(models.Model):
     blog_image = models.CharField(max_length=250, null=True, blank=True)
     category=models.CharField(max_length=255, null=True, blank=True)
