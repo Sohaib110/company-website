@@ -5,7 +5,8 @@ from app.models import(
                        Service,
                        Testimonial,
                        FrequentlyAskedQuestion,
-                       ContactFormLog
+                       ContactFormLog,
+                       Blog
 )
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -16,6 +17,13 @@ def index(request):
     service= Service.objects.all()
     testimonial= Testimonial.objects.all()
     faqs= FrequentlyAskedQuestion.objects.all()
+    recent_blogs= Blog.objects.all().order_by('-created_at')[:3]
+    for blog in recent_blogs:
+        print(f"blog:{blog}"),
+        print(f"blog.created_at:{blog.create_at}"),
+        print(f"blog.author:{blog.author}"),
+        print(f"blog.author.country:{blog.author.country}"),
+        
     
     context={
             "company_name":general_info.company_name,
