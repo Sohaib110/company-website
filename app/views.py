@@ -17,10 +17,10 @@ def index(request):
     service= Service.objects.all()
     testimonial= Testimonial.objects.all()
     faqs= FrequentlyAskedQuestion.objects.all()
-    recent_blogs= Blog.objects.all().order_by('-created_at')[:3]
+    recent_blogs= Blog.objects.all().order_by('-create_at')[:3]
     for blog in recent_blogs:
         print(f"blog:{blog}"),
-        print(f"blog.created_at:{blog.create_at}"),
+        print(f"blog.create_at:{blog.create_at}"),
         print(f"blog.author:{blog.author}"),
         print(f"blog.author.country:{blog.author.country}"),
         
@@ -40,7 +40,8 @@ def index(request):
             "services":service, 
             
             "testimonials":testimonial,
-            "faqs":faqs
+            "faqs":faqs,
+            "recent_blogs":recent_blogs
             
             
                 
@@ -100,6 +101,13 @@ def contact_form(request):
                     
             )
             return redirect('home')
+
+def blog_detail(request, blog_id):
+    blog= Blog.objects.get(id=blog_id)
+    context={
+        "blog":blog
+    }
+    return render(request, 'blog_details.html', context)
             
                     
 
