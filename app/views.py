@@ -110,6 +110,15 @@ def blog_detail(request, blog_id):
         "recent_blogs":recent_blogs,
     }
     return render(request, 'blog_details.html', context)
+
+def blogs(request):
+    all_blogs=Blog.objects.all().order_by('-create_at')
+    context={
+        "all_blogs":all_blogs,
+       
+    }
+        
+    return render(request, 'blogs.html', context)
             
                     
 
