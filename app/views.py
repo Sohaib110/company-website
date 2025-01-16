@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.core.mail import send_mail
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from app.models import( 
                        GeneralInfo,
                        Service,
@@ -23,19 +24,18 @@ def index(request):
         print(f"blog.create_at:{blog.create_at}"),
         print(f"blog.author:{blog.author}"),
         print(f"blog.author.country:{blog.author.country}"),
-        
-    
+        default_value=""
     context={
-            "company_name":general_info.company_name,
-            "location":general_info.location,
-            "email":general_info.email,
-            "phone":general_info.phone,
-            "open_hours":general_info.open_hours,
-            "video_url":general_info.video_url,
-            "twitter_url":general_info.twitter,
-            "facebook_url":general_info.facebook,
-            "instagram_url":general_info.instagram,
-            "linkedin_url":general_info.linkedin,  
+            "company_name":getattr(general_info,"company_name", default_value),
+            "location": getattr(general_info,"location", default_value),
+            "email": getattr(general_info, "email",default_value),
+            "phone":getattr(general_info, "phone",default_value),
+            "open_hours":getattr(general_info, "open_hours",default_value),
+            "video_url":getattr(general_info, "video_url",default_value),
+            "twitter_url":getattr(general_info, "twitter_url",default_value),
+            "facebook_url":getattr(general_info, "facebook_url",default_value),
+            "instagram_url":getattr(general_info, "instagram_url",default_value),
+            "linkedin_url":getattr(general_info, "linkedin_url",default_value), 
             
             "services":service, 
             
@@ -113,8 +113,21 @@ def blog_detail(request, blog_id):
 
 def blogs(request):
     all_blogs=Blog.objects.all().order_by('-create_at')
+    blogs_per_page=3
+    paginator=Paginator(all_blogs, blogs_per_page)
+    
+    page= request.GET.get('page')
+    
+    try:
+        blogs = paginator.page(page)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+    except EmptyPage:
+        blogs = paginator.page(paginator.num_pages)
+   
+    
     context={
-        "all_blogs":all_blogs,
+        "blogs":blogs,
        
     }
         
