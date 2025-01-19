@@ -24,7 +24,7 @@ def index(request):
         print(f"blog.create_at:{blog.create_at}"),
         print(f"blog.author:{blog.author}"),
         print(f"blog.author.country:{blog.author.country}"),
-        default_value=""
+    default_value=" "
     context={
             "company_name":getattr(general_info,"company_name", default_value),
             "location": getattr(general_info,"location", default_value),
